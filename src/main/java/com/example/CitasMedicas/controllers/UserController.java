@@ -1,11 +1,13 @@
 package com.example.CitasMedicas.controllers;
 
+import com.example.CitasMedicas.dto.UserDTO;
 import com.example.CitasMedicas.models.UserModel;
 import com.example.CitasMedicas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +22,7 @@ public class UserController {
     // Se usa para indicar que este método obtiene las peticiones HTTP GET
     @GetMapping
     // Obtenemos la lista de Usuarios
-    public ArrayList<UserModel> getUsers(){
+    public List<UserDTO> getUsers(){
         // Devolvemos la lista de usuarios de userService
         return this.userService.getUsers();
     }

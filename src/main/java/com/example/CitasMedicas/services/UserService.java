@@ -1,12 +1,14 @@
 package com.example.CitasMedicas.services;
 
+import com.example.CitasMedicas.dto.UserDTO;
 import com.example.CitasMedicas.interfaces.IUserService;
+import com.example.CitasMedicas.mapper.UserMapper;
 import com.example.CitasMedicas.models.UserModel;
 import com.example.CitasMedicas.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,12 +19,16 @@ public class UserService implements IUserService {
     // Repositorio de los usuarios
     IUserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper; // Variable para usar el mapper
+
     /**
      * Método para obtener el array dónde se obtiene la lista de usuarios
      */
-    public ArrayList<UserModel> getUsers(){
+    public List<UserDTO> getUsers(){
+        List<UserModel> user = userRepository.findAll();
         // Devuelve todos los usuarios del repositorio
-        return (ArrayList<UserModel>) userRepository.findAll();
+        return userMapper.UDTOtoList(user);
     }
 
     /**
