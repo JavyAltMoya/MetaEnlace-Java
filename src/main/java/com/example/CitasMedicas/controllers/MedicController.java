@@ -1,11 +1,12 @@
 package com.example.CitasMedicas.controllers;
 
+import com.example.CitasMedicas.dto.MedicDTO;
 import com.example.CitasMedicas.models.MedicModel;
 import com.example.CitasMedicas.services.MedicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +20,7 @@ public class MedicController {
     // Se usa para indicar que este método obtiene las peticiones HTTP GET
     @GetMapping
     // Obtenemos la lista de Médicos
-    public ArrayList<MedicModel> getMedic(){
+    public List<MedicDTO> getMedic(){
         // Devolvemos la lista de médicos de userService
         return this.medicService.getMedic();
     }
@@ -27,20 +28,20 @@ public class MedicController {
     // Se usa para guardar el método de los médico
     @PostMapping
     // Guardamos el médicos
-    public MedicModel guardarMedico(@RequestBody MedicModel user){
+    public MedicDTO guardarMedico(@RequestBody MedicModel user){
         return this.medicService.guardarMedico(user);
     }
 
     // Se usa para obtener el id de un médico
     @GetMapping(path= "/{id}")
-    public Optional<MedicModel> getMedicByID(@PathVariable Long id){
+    public Optional<MedicDTO> getMedicByID(@PathVariable Long id){
 
         return this.medicService.getById(id);
     }
 
     // Se usa para actualizar el médico
     @PutMapping(path= "/{id}")
-    public MedicModel updateUserByID(@RequestBody MedicModel request,@PathVariable("id") Long id){
+    public MedicDTO updateUserByID(@RequestBody MedicModel request,@PathVariable("id") Long id){
         return this.medicService.updateById(request, id);
     }
 

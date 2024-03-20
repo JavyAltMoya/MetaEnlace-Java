@@ -30,11 +30,11 @@ public class AppoModel {
 
     // Realizamos la relación con paciente y medico mediante el Muchos a Uno
     @ManyToOne
-    @JoinColumn(name= "id_paciente")
+    @JoinColumn(name= "id_pacient")
     private PacientModel paciente;
 
     @ManyToOne
-    @JoinColumn(name= "id_medico")
+    @JoinColumn(name= "id_medic")
     private MedicModel medico;
 
     // Realizamos la relación con diagnóstico mediante el Uno a Uno

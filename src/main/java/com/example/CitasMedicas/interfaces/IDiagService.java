@@ -1,19 +1,20 @@
 package com.example.CitasMedicas.interfaces;
 
+import com.example.CitasMedicas.dto.DiagDTO;
 import com.example.CitasMedicas.models.DiagModel;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface IDiagService {
 
-    ArrayList<DiagModel> getDiag();
+    List<DiagDTO> getDiag();
 
-    DiagModel guardarDiag(DiagModel diag);
+    DiagDTO guardarDiag(DiagModel diag);
 
-    Optional<DiagModel> getById(Long id);
+    Optional<DiagDTO> getById(Long id);
 
-    DiagModel updateById(DiagModel request, Long id);
+    DiagDTO updateById(DiagModel request, Long id);
 
     Boolean deleteDiag(Long id);
 

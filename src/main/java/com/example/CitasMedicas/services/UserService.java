@@ -3,6 +3,7 @@ package com.example.CitasMedicas.services;
 import com.example.CitasMedicas.dto.UserDTO;
 import com.example.CitasMedicas.interfaces.IUserService;
 import com.example.CitasMedicas.mapper.UserMapper;
+import com.example.CitasMedicas.models.PacientModel;
 import com.example.CitasMedicas.models.UserModel;
 import com.example.CitasMedicas.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,45 +35,61 @@ public class UserService implements IUserService {
     /**
      * Método para guardar el usuario
      */
-    public UserModel guardarUsuario(UserModel user){
-        return userRepository.save(user);
+    public UserDTO guardarUsuario(UserModel user){
+        UserModel userModel = userRepository.save(user);
+        return userMapper.UToDto(userModel);
     }
 
     /**
      * Método para obtener los datos a través de un ID
      */
-    public Optional<UserModel> getById(Long id){
-        return userRepository.findById(id);
+    public Optional<UserDTO> getById(Long id){
+        UserModel userModel;
+        if (userRepository.findById(id).isPresent()) {
+            userModel = userRepository.findById(id).get();
+        } else {
+            userModel = null;
+        }
+        UserDTO userDTO = userMapper.UToDto(userModel);
+        return Optional.ofNullable(userDTO);
     }
 
     /**
      * Método para actualizar el usuario
      */
-    public UserModel updateById(UserModel request, Long id){
-        UserModel user = userRepository.findById(id).get();
+    public UserDTO updateById(UserModel request, Long id){
+        UserModel user;
+        if (userRepository.findById(id).isPresent()){
+            user = userRepository.findById(id).get();
+            // Condicional que controla que si no se introduce el dato, este no se actualiza
+            if (request.getNombre() == null) {} else {user.setNombre(request.getNombre());}
 
-        // Condicional que controla que si no se introduce el dato, este no se actualiza
-        if (request.getNombre() == null) {} else {user.setNombre(request.getNombre());}
+            if (request.getApellidos() == null) {} else {user.setApellidos(request.getApellidos());}
 
-        if (request.getApellidos() == null) {} else {user.setApellidos(request.getApellidos());}
+            if (request.getUsuario() == null) {} else {user.setUsuario(request.getUsuario());}
 
-        if (request.getUsuario() == null) {} else {user.setUsuario(request.getUsuario());}
+            if (request.getClave() == null) {} else {user.setClave(request.getClave());}
 
-        if (request.getClave() == null) {} else {user.setClave(request.getClave());}
-
-        user = userRepository.save(user);
-
-        return user;
+            user = userRepository.save(user);
+        } else {
+            user = null;
+        }
+        return userMapper.UToDto(user);
     }
 
     /**
      * Método para borrar el usuario a través del ID
      */
     public Boolean deleteUser(Long id){
-        try{
-            userRepository.deleteById(id);
-            return true;
-        } catch(Exception e){
+        boolean existe = userRepository.existsById(id);
+        if (existe){
+            try{
+                userRepository.deleteById(id);
+                return true;
+            } catch(Exception e){
+                return false;
+            }
+        } else {
             return false;
         }
     }

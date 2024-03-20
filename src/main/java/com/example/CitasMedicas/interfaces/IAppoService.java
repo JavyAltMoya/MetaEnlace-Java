@@ -1,21 +1,20 @@
 package com.example.CitasMedicas.interfaces;
 
+import com.example.CitasMedicas.dto.AppoDTO;
 import com.example.CitasMedicas.models.AppoModel;
-import com.example.CitasMedicas.models.MedicModel;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface IAppoService {
 
-    ArrayList<AppoModel> getCita();
+    List<AppoDTO> getCita();
 
-    AppoModel guardarCita(AppoModel date);
+    AppoDTO guardarCita(AppoDTO date);
 
-    Optional<AppoModel> getById(Long id);
+    Optional<AppoDTO> getById(Long id);
 
-    AppoModel updateById(AppoModel request, Long id);
+    AppoDTO updateById(AppoModel request, Long id);
 
     Boolean deleteCita(Long id);
 

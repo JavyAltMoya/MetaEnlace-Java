@@ -30,19 +30,19 @@ public class UserController {
     // Se usa para guardar el método de los usuarios
     @PostMapping
     // Guardamos el usuario
-    public UserModel guardarUsuario(@RequestBody UserModel user){
+    public UserDTO guardarUsuario(@RequestBody UserModel user){
         return this.userService.guardarUsuario(user);
     }
 
     // Se usa para obtener el id de un usuario
     @GetMapping(path= "/{id}")
-    public Optional<UserModel> getUserByID(@PathVariable Long id){
+    public Optional<UserDTO> getUserByID(@PathVariable Long id){
         return this.userService.getById(id);
     }
 
     // Se usa para actualizar el usuario
     @PutMapping(path= "/{id}")
-    public UserModel updateUserByID(@RequestBody UserModel request,@PathVariable("id") Long id){
+    public UserDTO updateUserByID(@RequestBody UserModel request,@PathVariable("id") Long id){
         return this.userService.updateById(request, id);
     }
 

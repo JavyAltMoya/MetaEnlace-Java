@@ -2,6 +2,9 @@ package com.example.CitasMedicas.mapper;
 
 import com.example.CitasMedicas.dto.AppoDTO;
 import com.example.CitasMedicas.models.AppoModel;
+import com.example.CitasMedicas.models.DiagModel;
+import com.example.CitasMedicas.models.MedicModel;
+import com.example.CitasMedicas.models.PacientModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-18T10:35:04+0100",
+    date = "2024-03-18T14:17:40+0100",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -24,6 +27,9 @@ public class AppoMapperImpl implements AppoMapper {
         AppoDTO.AppoDTOBuilder appoDTO = AppoDTO.builder();
 
         appoDTO.id( AppoModel.getId() );
+        appoDTO.pacienteId( appoModelPacienteId( AppoModel ) );
+        appoDTO.medicoId( appoModelMedicoId( AppoModel ) );
+        appoDTO.diagnosticoId( appoModelDiagnosticoId( AppoModel ) );
         appoDTO.fechaHora( AppoModel.getFechaHora() );
         appoDTO.motivoCita( AppoModel.getMotivoCita() );
         appoDTO.attribute11( AppoModel.getAttribute11() );
@@ -39,6 +45,9 @@ public class AppoMapperImpl implements AppoMapper {
 
         AppoModel.AppoModelBuilder appoModel = AppoModel.builder();
 
+        appoModel.paciente( appoDTOToPacientModel( appoDTO ) );
+        appoModel.medico( appoDTOToMedicModel( appoDTO ) );
+        appoModel.diagnostico( appoDTOToDiagModel( appoDTO ) );
         appoModel.id( appoDTO.getId() );
         appoModel.fechaHora( appoDTO.getFechaHora() );
         appoModel.motivoCita( appoDTO.getMotivoCita() );
@@ -73,5 +82,82 @@ public class AppoMapperImpl implements AppoMapper {
         }
 
         return list;
+    }
+
+    private Long appoModelPacienteId(AppoModel appoModel) {
+        if ( appoModel == null ) {
+            return null;
+        }
+        PacientModel paciente = appoModel.getPaciente();
+        if ( paciente == null ) {
+            return null;
+        }
+        Long id = paciente.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+
+    private Long appoModelMedicoId(AppoModel appoModel) {
+        if ( appoModel == null ) {
+            return null;
+        }
+        MedicModel medico = appoModel.getMedico();
+        if ( medico == null ) {
+            return null;
+        }
+        Long id = medico.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+
+    private Long appoModelDiagnosticoId(AppoModel appoModel) {
+        if ( appoModel == null ) {
+            return null;
+        }
+        DiagModel diagnostico = appoModel.getDiagnostico();
+        if ( diagnostico == null ) {
+            return null;
+        }
+        Long id = diagnostico.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+
+    protected PacientModel appoDTOToPacientModel(AppoDTO appoDTO) {
+        if ( appoDTO == null ) {
+            return null;
+        }
+
+        PacientModel.PacientModelBuilder pacientModel = PacientModel.builder();
+
+        return pacientModel.build();
+    }
+
+    protected MedicModel appoDTOToMedicModel(AppoDTO appoDTO) {
+        if ( appoDTO == null ) {
+            return null;
+        }
+
+        MedicModel.MedicModelBuilder medicModel = MedicModel.builder();
+
+        return medicModel.build();
+    }
+
+    protected DiagModel appoDTOToDiagModel(AppoDTO appoDTO) {
+        if ( appoDTO == null ) {
+            return null;
+        }
+
+        DiagModel.DiagModelBuilder diagModel = DiagModel.builder();
+
+        diagModel.id( appoDTO.getDiagnosticoId() );
+
+        return diagModel.build();
     }
 }

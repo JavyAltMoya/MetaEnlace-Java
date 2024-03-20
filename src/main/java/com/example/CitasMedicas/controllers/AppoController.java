@@ -1,13 +1,12 @@
 package com.example.CitasMedicas.controllers;
 
+import com.example.CitasMedicas.dto.AppoDTO;
 import com.example.CitasMedicas.models.AppoModel;
-import com.example.CitasMedicas.models.MedicModel;
 import com.example.CitasMedicas.services.AppoService;
-import com.example.CitasMedicas.services.MedicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +20,7 @@ public class AppoController {
     // Se usa para indicar que este método obtiene las peticiones HTTP GET
     @GetMapping
     // Obtenemos la lista de citas
-    public ArrayList<AppoModel> getCita(){
+    public List<AppoDTO> getCita(){
         // Devolvemos la lista de citas
         return this.appoService.getCita();
     }
@@ -29,20 +28,20 @@ public class AppoController {
     // Se usa para guardar el método de las citas
     @PostMapping
     // Guardamos las citas
-    public AppoModel guardarCita(@RequestBody AppoModel date){
+    public AppoDTO guardarCita(@RequestBody AppoDTO date){
         return this.appoService.guardarCita(date);
     }
 
     // Se usa para obtener el id de una cita
     @GetMapping(path= "/{id}")
-    public Optional<AppoModel> getCitaByID(@PathVariable Long id){
+    public Optional<AppoDTO> getCitaByID(@PathVariable Long id){
 
         return this.appoService.getById(id);
     }
 
     // Se usa para actualizar la cita
     @PutMapping(path= "/{id}")
-    public AppoModel updateCitaByID(@RequestBody AppoModel request,@PathVariable("id") Long id){
+    public AppoDTO updateCitaByID(@RequestBody AppoModel request,@PathVariable("id") Long id){
         return this.appoService.updateById(request, id);
     }
 

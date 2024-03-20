@@ -19,5 +19,4 @@ public class UserDTO {
     private String usuario;
 
     private String clave;
-
 }

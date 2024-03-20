@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface IUserService {
     List<UserDTO> getUsers();
-    UserModel guardarUsuario(UserModel user);
-    Optional<UserModel> getById(Long id);
-    UserModel updateById(UserModel request, Long id);
+    UserDTO guardarUsuario(UserModel user);
+    Optional<UserDTO> getById(Long id);
+    UserDTO updateById(UserModel request, Long id);
     Boolean deleteUser(Long id);
 }
