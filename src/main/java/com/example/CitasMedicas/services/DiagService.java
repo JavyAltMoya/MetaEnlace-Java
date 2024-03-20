@@ -1,12 +1,13 @@
 package com.example.CitasMedicas.services;
 
 import com.example.CitasMedicas.dto.DiagDTO;
-import com.example.CitasMedicas.dto.PacientDTO;
 import com.example.CitasMedicas.interfaces.IDiagService;
 import com.example.CitasMedicas.mapper.DiagMapper;
+import com.example.CitasMedicas.models.AppoModel;
 import com.example.CitasMedicas.models.DiagModel;
-import com.example.CitasMedicas.models.PacientModel;
+import com.example.CitasMedicas.repositories.IAppoRepository;
 import com.example.CitasMedicas.repositories.IDiagRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class DiagService implements IDiagService {
     @Autowired
     private DiagMapper diagMapper;
 
+    @Autowired
+    IAppoRepository appoRepository;
+
     /**
      * Método para obtener el array dónde se obtiene la lista de diagnósticos
      */
@@ -35,9 +39,23 @@ public class DiagService implements IDiagService {
     /**
      * Método para guardar los diagnósticos
      */
-    public DiagDTO guardarDiag(DiagModel diag){
-        DiagModel diagModel = diagRepository.save(diag);
-        return diagMapper.DToDto(diagModel);
+    public DiagDTO guardarDiag(DiagDTO diag){
+        DiagModel diagModel = diagMapper.DToEntity(diag);
+
+        // Controlamos que el ID de la cita ya existe
+        Long citaID = diag.getCitaId();
+        Optional<AppoModel> AppoOp = appoRepository.findById(citaID);
+
+
+        // Si se han introducido valores existentes introducido los datos dentro de Citas
+        if (AppoOp.isPresent()) {
+            AppoModel appoModel = AppoOp.get();
+            diagModel.setCita(appoModel);
+
+            return diagMapper.DToDto(diagRepository.save(diagModel));
+        } else {
+            throw new EntityNotFoundException("No se pudo encontrar los datos.");
+        }
     }
 
     /**

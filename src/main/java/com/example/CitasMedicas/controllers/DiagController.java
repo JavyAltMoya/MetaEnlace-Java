@@ -28,7 +28,7 @@ public class DiagController {
     // Se usa para guardar el método de los diagnósticos
     @PostMapping
     // Guardamos los diagnósticos
-    public DiagDTO guardarDiag(@RequestBody DiagModel diag){
+    public DiagDTO guardarDiag(@RequestBody DiagDTO diag){
         return this.diagService.guardarDiag(diag);
     }
 

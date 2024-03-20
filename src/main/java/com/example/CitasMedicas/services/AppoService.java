@@ -4,7 +4,6 @@ import com.example.CitasMedicas.dto.AppoDTO;
 import com.example.CitasMedicas.interfaces.IAppoService;
 import com.example.CitasMedicas.mapper.AppoMapper;
 import com.example.CitasMedicas.models.AppoModel;
-import com.example.CitasMedicas.models.DiagModel;
 import com.example.CitasMedicas.models.MedicModel;
 import com.example.CitasMedicas.models.PacientModel;
 import com.example.CitasMedicas.repositories.IAppoRepository;
@@ -59,20 +58,14 @@ public class AppoService implements IAppoService {
         Long pacienteID = date.getPacienteId();
         Optional<PacientModel> pacientOp = pacientRepository.findById(pacienteID);
 
-        // Controlamos que el ID del diagnóstico ya existe
-        Long diagID = date.getDiagnosticoId();
-        Optional<DiagModel> diagOp = diagRepository.findById(diagID);
 
         // Si se han introducido valores existentes introducido los datos dentro de Citas
-        if (medicOp.isPresent() && pacientOp.isPresent() && diagOp.isPresent()) {
+        if (medicOp.isPresent() && pacientOp.isPresent()) {
             MedicModel medicModel = medicOp.get();
             appoModel.setMedico(medicModel);
 
             PacientModel pacientModel = pacientOp.get();
             appoModel.setPaciente(pacientModel);
-
-            DiagModel diagModel = diagOp.get();
-            appoModel.setDiagnostico(diagModel);
 
             return appoMapper.AToDto(appoRepository.save(appoModel));
         } else {

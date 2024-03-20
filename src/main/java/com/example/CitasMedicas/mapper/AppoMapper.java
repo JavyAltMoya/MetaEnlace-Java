@@ -12,8 +12,7 @@ public interface AppoMapper {
     @Mappings({
             @Mapping( source = "id" , target =  "id"),
             @Mapping(source = "paciente.id", target = "pacienteId"),
-            @Mapping(source = "medico.id", target = "medicoId"),
-            @Mapping(source = "diagnostico.id", target = "diagnosticoId")
+            @Mapping(source = "medico.id", target = "medicoId")
     })
     AppoDTO AToDto (AppoModel AppoModel); // Convertimos el objeto AppoModel en un objeto AppoDTO
 

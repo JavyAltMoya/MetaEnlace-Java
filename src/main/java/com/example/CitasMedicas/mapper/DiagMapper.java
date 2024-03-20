@@ -2,17 +2,19 @@ package com.example.CitasMedicas.mapper;
 
 import com.example.CitasMedicas.dto.DiagDTO;
 import com.example.CitasMedicas.models.DiagModel;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DiagMapper {
     //Creamos un mapeo desde DiagModel a DiagDTO
-    @Mapping( source = "id" , target =  "id")
+    @Mappings({
+            @Mapping( source = "id" , target =  "id"),
+            @Mapping(source = "cita.id", target = "citaId")
+    }
+    )
+
     DiagDTO DToDto (DiagModel DiagModel); // Convertimos el objeto DiagModel en un objeto DiagDTO
 
     // Anotación para invertir el DTO a Model

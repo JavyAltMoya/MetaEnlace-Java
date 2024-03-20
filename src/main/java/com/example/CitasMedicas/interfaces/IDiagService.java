@@ -10,7 +10,7 @@ public interface IDiagService {
 
     List<DiagDTO> getDiag();
 
-    DiagDTO guardarDiag(DiagModel diag);
+    DiagDTO guardarDiag(DiagDTO diag);
 
     Optional<DiagDTO> getById(Long id);
 

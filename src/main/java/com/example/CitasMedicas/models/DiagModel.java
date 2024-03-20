@@ -25,6 +25,7 @@ public class DiagModel {
     private String enfermedad;
 
     // Creamos la lista donde almacenaremos los diagnosticos en las citas
-    @OneToOne(mappedBy = "diagnostico", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name= "cita", referencedColumnName = "id")
     private AppoModel cita;
 }

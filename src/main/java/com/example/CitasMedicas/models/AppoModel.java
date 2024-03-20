@@ -38,7 +38,6 @@ public class AppoModel {
     private MedicModel medico;
 
     // Realizamos la relación con diagnóstico mediante el Uno a Uno
-    @OneToOne
-    @JoinColumn(name= "diagnostico", referencedColumnName = "id")
+    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
     private DiagModel diagnostico;
 }

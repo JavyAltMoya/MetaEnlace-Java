@@ -15,4 +15,6 @@ public class DiagDTO {
 
     private String enfermedad;
 
+    private Long citaId;
+
 }

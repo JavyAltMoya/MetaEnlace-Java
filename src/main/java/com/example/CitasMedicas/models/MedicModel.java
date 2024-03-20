@@ -21,7 +21,7 @@ public class MedicModel extends UserModel{
     private String numColegiado;
 
     // Creamos la lista donde almacenaremos los pacientes
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable (
             name ="Medic-Pacient", joinColumns = @JoinColumn(name = "id_medic", referencedColumnName = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_pacient", referencedColumnName = "id_usuario")

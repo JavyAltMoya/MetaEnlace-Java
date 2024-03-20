@@ -23,6 +23,5 @@ public class AppoDTO {
 
     private Long medicoId;
 
-    private Long diagnosticoId;
 
 }
